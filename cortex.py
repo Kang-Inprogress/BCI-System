@@ -9,6 +9,7 @@ import warnings
 import threading
 import os
 import fe_recognition
+import datetime
 
 
 # define request id
@@ -329,10 +330,10 @@ class Cortex(Dispatcher):
             #Facial Data here!!
             # print(fe_data)
             secs = time.localtime().tm_sec
-            if(secs % 10 == 0): # 10 초마다
+            if(secs % 10 == 0 and datetime.now().microsecond == 0): # 10 초마다
                 rst = fe_recognition.fe_recogniiton(fe_data)
                 if(rst == "surprise_high"):
-                    print("surprise_high")
+                    print("surprise_high") #os.system 으로 python2를 이용해 나오 명령 내리기
                 elif(rst == "surprise_low"):
                     print("surprise_low")
                 elif(rst == "anger_high"):

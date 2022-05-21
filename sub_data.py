@@ -1,4 +1,5 @@
 from cortex import Cortex
+import json
 
 class Subcribe():
     """
@@ -208,8 +209,10 @@ class Subcribe():
 def main():
 
     # Please fill your application clientId and clientSecret before running script
-    your_app_client_id = 'i7dLRbhG1wH4cnCoTYpxkriGgMIqEflmLWLXD4Hs'
-    your_app_client_secret = 'ZlhDjGcV7wNAggkrWfk8OmiOWBfYOdekd3MkVZI5SjMCVrXCfkR9MSgPu1jFr6arVCtKY6LEjQz4z941iBCojv2mfi2hAe6iKeNf6oCwaT5bVa4VzZ16GeJKXFcEAf9Q'
+    with open("client.json") as jfile: # client.json include client ID and Secret Key
+        jf = json.load(jfile)
+    your_app_client_id = jf["clientID"]
+    your_app_client_secret = jf["clientSecret"]
 
     s = Subcribe(your_app_client_id, your_app_client_secret)
 
