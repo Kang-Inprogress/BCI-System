@@ -335,7 +335,7 @@ class Cortex(Dispatcher):
                 if(rst == "surprise_high"):
                     print("surprise_high") #os.system 으로 python2를 이용해 나오 명령 내리기
                 elif(rst == "surprise_low"):
-                    print("surprise_low")
+                    print("surprise_low") # ddd
                 elif(rst == "anger_high"):
                     print("anger_high")
                 elif(rst == "anger_low"):
