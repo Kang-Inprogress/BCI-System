@@ -9,8 +9,6 @@ import warnings
 import threading
 import os
 import fe_recognition
-import datetime
-
 
 # define request id
 QUERY_HEADSET_ID                    =   1
@@ -58,6 +56,9 @@ HEADSET_DISCONNECTED_TIMEOUT = 103
 HEADSET_CONNECTED = 104
 HEADSET_CANNOT_WORK_WITH_BTLE = 112
 HEADSET_CANNOT_CONNECT_DISABLE_MOTION = 113
+
+# added global val
+FlagForSignal = True
 
 
 class Cortex(Dispatcher):
@@ -318,7 +319,7 @@ class Cortex(Dispatcher):
             com_data['power'] = result_dic['com'][1]
             com_data['time'] = result_dic['time']
             self.emit('new_com_data', data=com_data)
-        elif result_dic.get('fac') != None:
+        elif result_dic.get('fac') != None: #Facial Data here!!
             fe_data = {}
             fe_data['eyeAct'] = result_dic['fac'][0]    #eye action
             fe_data['uAct'] = result_dic['fac'][1]      #upper action
@@ -327,28 +328,34 @@ class Cortex(Dispatcher):
             fe_data['lPow'] = result_dic['fac'][4]      #lower action power
             fe_data['time'] = result_dic['time']
             self.emit('new_fe_data', data=fe_data)
-            #Facial Data here!!
-            # print(fe_data)
-            secs = time.localtime().tm_sec
-            if(secs % 10 == 0 and datetime.now().microsecond == 0): # 10 초마다
+            # function added
+            def signal_control(fe_data):
                 rst = fe_recognition.fe_recogniiton(fe_data)
-                if(rst == "surprise_high"):
-                    print("surprise_high") #os.system 으로 python2를 이용해 나오 명령 내리기
-                elif(rst == "surprise_low"):
-                    print("surprise_low") # ddd
-                elif(rst == "anger_high"):
+                if (rst == "surprise_high"):
+                    print("surprise_high")  # os.system 으로 python2를 이용해 나오 명령 내리기
+                elif (rst == "surprise_low"):
+                    print("surprise_low")
+                elif (rst == "anger_high"):
                     print("anger_high")
-                elif(rst == "anger_low"):
+                elif (rst == "anger_low"):
                     print("anger_low")
-                elif(rst == "happy_high"):
+                elif (rst == "happy_high"):
                     print("happy_high")
-                elif(rst == "happy_low"):
+                elif (rst == "happy_low"):
                     print("happy_low")
-                elif(rst == "neutral"):
-                    print("neutral")
+                elif (rst == "neutral"):
+                    os.system("python tests.py")
                 else:
-                    print("neutral")
-            # time.sleep(5)
+                    os.system("python tests.py")
+
+            global FlagForSignal
+            if (time.localtime().tm_sec % 10 == 0 and FlagForSignal == True):
+                signal_control(fe_data)
+                FlagForSignal = False
+            if (time.localtime().tm_sec % 10 == 5 and FlagForSignal == False):
+                FlagForSignal = True
+
+
         elif result_dic.get('eeg') != None:
             eeg_data = {}
             eeg_data['eeg'] = result_dic['eeg']
