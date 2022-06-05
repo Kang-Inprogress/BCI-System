@@ -332,21 +332,21 @@ class Cortex(Dispatcher):
             def signal_control(fe_data):
                 rst = fe_recognition.fe_recogniiton(fe_data)
                 if (rst == "surprise_high"):
-                    print("surprise_high")  # os.system 으로 python2를 이용해 나오 명령 내리기
+                    os.system("python2 naoPosture.py --ip 127.0.0.1 --port 9559 --emot surprise_high")
                 elif (rst == "surprise_low"):
-                    print("surprise_low")
+                    os.system("python2 naoPosture.py --ip 127.0.0.1 --port 9559 --emot surprise_low")
                 elif (rst == "anger_high"):
-                    print("anger_high")
+                    os.system("python2 naoPosture.py --ip 127.0.0.1 --port 9559 --emot anger_high")
                 elif (rst == "anger_low"):
-                    print("anger_low")
+                    os.system("python2 naoPosture.py --ip 127.0.0.1 --port 9559 --emot anger_low")
                 elif (rst == "happy_high"):
-                    print("happy_high")
+                    os.system("python2 naoPosture.py --ip 127.0.0.1 --port 9559 --emot happy_high")
                 elif (rst == "happy_low"):
-                    print("happy_low")
+                    os.system("python2 naoPosture.py --ip 127.0.0.1 --port 9559 --emot happy_low")
                 elif (rst == "neutral"):
-                    os.system("python tests.py")
+                    print("now neutral")
                 else:
-                    os.system("python tests.py")
+                    print("now neutral")
 
             global FlagForSignal
             if (time.localtime().tm_sec % 10 == 0 and FlagForSignal == True):

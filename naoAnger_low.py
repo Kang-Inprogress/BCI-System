@@ -65,13 +65,13 @@ def Anger_low(IP):
 
             "ChestBoard/Led/Green/Actuator/Value"
         ]
-        leds.createGroup("MyGroup", Angerlow_leds)
+        # leds.createGroup("MyGroup", Angerlow_leds)
         # time.sleep(10)
         #나 조금 화났어 말하기
 
-        leds.off("MyGroup")
+        # leds.off("MyGroup")
         motion.angleInterpolation(names, keys, times, True)
         motion.setStiffnesses("Body", 1.0)
-        leds.on("MyGroup")
+        # leds.on("MyGroup")
     except BaseException, err:
         print(err)

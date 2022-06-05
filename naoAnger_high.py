@@ -90,14 +90,14 @@ def Anger_high(IP):
             "ChestBoard/Led/Green/Actuator/Value",
             "ChestBoard/Led/Blue/Actuator/Value"
         ]
-        leds.createGroup("MyGroup", Angerhigh_leds)
+        # leds.createGroup("MyGroup", Angerhigh_leds)
         time.sleep(10)
 
-        leds.off("MyGroup")
-        # "나 화났어" 대사 추가
+        # leds.off("MyGroup")
+
         motion.angleInterpolation(names, keys, times, True, _async=True)
         motion.setStiffnesses("Body", 1.0) # stiffnesses=1.0
-        leds.on("MyGroup")
+        # leds.on("MyGroup")
 
     except BaseException, err:
         print(err)
